@@ -1,0 +1,6 @@
+Exception versus return code based error handling --> https://medium.com/@mattklein123/exceptional-go-1dd1488a6a47 --
+My personal philosophy on this topic is nuanced. I think the least convoluted code uses both exception and return code based error handling. In my own code, I use roughly the following two rules to decide which method to use:
+If an error is typically propagated at most one stack frame (i.e., to the immediate caller of a function), return code error handling should be used.
+If an error is typically propagated more than one stack frame (i.e., up through several callers of a function), exception based error handling should be used.
+The reasoning behind the above two rules is quite simple: When errors have to traverse a short distance, return codes are less verbose. When errors have to traverse a large distance, exceptions are far less verbose. Less code is generally easier to understand, easier to test, and easier to maintain.
+
